@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase';
+import { ActivatedRoute, Router  } from '@angular/router';
+import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatePage implements OnInit {
 
-  constructor() { }
+  ref = firebase.database().ref('infos/');
+  infoForm: FormGroup;
+
+  constructor(private route: ActivatedRoute,
+    public router: Router,
+    private formBuilder: FormBuilder) {
+      this.infoForm = this.formBuilder.group({
+        'info_title' : [null, Validators.required],
+        'info_description' : [null, Validators.required]
+      });
+    }
 
   ngOnInit() {
   }
 
+  saveInfo() {
+    let newInfo = firebase.database().ref('infos/').push();
+    newInfo.set(this.infoForm.value);
+    console.log("Data was inserted");
+  }
 }
