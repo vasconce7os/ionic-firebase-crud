@@ -28,6 +28,6 @@ export class CreatePage implements OnInit {
   saveInfo() {
     let newInfo = firebase.database().ref('infos/').push();
     newInfo.set(this.infoForm.value);
-    console.log("Data was inserted");
+    this.router.navigate(['/detail/'+newInfo.key]);
   }
 }
