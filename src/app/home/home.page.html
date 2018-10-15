@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-item-sliding *ngFor="let info of infos">
-      <ion-item>
+      <ion-item detail lines="full" routerLink="/detail/{{info.key}}">
         {{info.info_title}}
       </ion-item>
     </ion-item-sliding>
